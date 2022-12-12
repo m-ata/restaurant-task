@@ -1,0 +1,23 @@
+.layout {
+  min-height: calc(100vh - 32px);
+
+  & > header {
+    background: rgb(45, 123, 205);
+    background: linear-gradient(
+      157deg,
+      rgba(45, 123, 205, 1) 0%,
+      rgba(141, 212, 131, 1) 48%,
+      rgba(122, 182, 191, 1) 100%
+    );
+    padding: 24px;
+    color: $white;
+    margin-top: 32px;
+  }
+
+  & > main {
+    box-sizing: border-box;
+    margin: auto;
+    padding: 20px 46px;
+    max-width: 1200px;
+  }
+}
