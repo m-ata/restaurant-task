@@ -1,0 +1,8 @@
+.search-description-section {
+  & > div > div {
+    padding-right: 0;
+    & input {
+      width: 200px;
+    }
+  }
+}
