@@ -19,7 +19,7 @@ import {
 import { ReservationDataRow } from "./ReservationDataRow";
 import { useLocation } from "react-router-dom";
 import { mockData } from "../../mock-data";
-import { SearchStaysDescription } from "../../components/SearchStaysDescription/SearchStaysDescription";
+import { TextSearchInput } from "../../components/TextSearchInput/TextSearchInput";
 import { getPageCount } from "../../utils/utils";
 import { DateRangePicker } from "../../components/DateRangePicker/DateRangePicker";
 
@@ -33,7 +33,7 @@ const ReservationsList = () => {
   const itemsPerPageOptions = [10, 15, 20, 25];
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
   const [dateRangeFilter, setDateRangeFilter] = useState(defaultDateRange);
-  const [descriptionFilter, setDescriptionFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
   const { pathname } = useLocation();
 
   const filterByDate = reservationsData => {
@@ -59,12 +59,12 @@ const ReservationsList = () => {
     return reservationsData;
   };
 
-  const filterByDescription = reservationsData => {
-    if (descriptionFilter) {
+  const filterByName = reservationsData => {
+    if (nameFilter) {
       return reservationsData.filter(
         data =>
-          data.stayDescription.includes(descriptionFilter.trim()) ||
-          data.code?.includes?.(descriptionFilter.trim()),
+          data.customer?.firstName?.toLowerCase?.().includes(nameFilter.toLowerCase().trim()) ||
+          data.customer?.lastName?.toLowerCase?.().includes(nameFilter.toLowerCase().trim()),
       );
     }
     return reservationsData;
@@ -72,10 +72,10 @@ const ReservationsList = () => {
 
   useEffect(() => {
     setDateRangeFilter(defaultDateRange);
-    setDescriptionFilter("");
+    setNameFilter("");
   }, [pathname]);
 
-  const filteredReservations = filterByDescription(filterByDate(mockData));
+  const filteredReservations = filterByName(filterByDate(mockData));
 
   const renderTable = () => (
     <Table stickyHeader size="large">
@@ -113,9 +113,10 @@ const ReservationsList = () => {
             className="reservations-table__container"
             component={Paper}>
             <Toolbar className="reservations-table__toolbar">
-              <SearchStaysDescription
-                setDescriptionFilter={setDescriptionFilter}
-                descriptionFilter={descriptionFilter}
+              <TextSearchInput
+                setTextFilter={setNameFilter}
+                textFilter={nameFilter}
+                label="Search By Name"
               />
               <DateRangePicker
                 setDateRangeFilter={setDateRangeFilter}

@@ -3,26 +3,20 @@ import { Cancel, Search } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import React from "react";
 
-export const SearchStaysDescription = ({
-  setDescriptionFilter,
-  descriptionFilter,
-}) => {
-
+export const TextSearchInput = ({ setTextFilter, textFilter, label }) => {
   return (
-    <div className="search-description-section">
+    <div className="search-text-section">
       <TextField
-        value={descriptionFilter}
+        value={textFilter}
         type="text"
         size="small"
-        onChange={e => setDescriptionFilter(e.target.value)}
-        label="Description"
+        onChange={e => setTextFilter(e.target.value)}
+        label={label}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              {descriptionFilter ? (
-                <IconButton
-                  disableRipple
-                  onClick={() => setDescriptionFilter("")}>
+              {textFilter ? (
+                <IconButton disableRipple onClick={() => setTextFilter("")}>
                   <Cancel />
                 </IconButton>
               ) : (
