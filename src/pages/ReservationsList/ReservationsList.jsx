@@ -15,7 +15,6 @@ import {
   Pagination,
   TextField,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import { StayDataRow } from "./StayDataRow";
 import { useLocation } from "react-router-dom";
@@ -30,7 +29,6 @@ const defaultDateRange = {
 };
 
 const ReservationsList = () => {
-  const stays = mockData;
   const [pageNumber, setPageNumber] = useState(1);
   const itemsPerPageOptions = [10, 15, 20, 25];
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
@@ -77,21 +75,21 @@ const ReservationsList = () => {
     setDescriptionFilter("");
   }, [pathname]);
 
-  const filteredStays = filterByDescription(filterByDate(stays.staysList));
+  const filteredStays = filterByDescription(filterByDate(mockData));
 
   const renderTable = () => (
     <Table stickyHeader size="large">
       <TableHead>
         <TableRow>
+          <TableCell align="center">Business Date</TableCell>
+          <TableCell align="center">Customer Name</TableCell>
           <TableCell align="center">Status</TableCell>
-          <TableCell align="center">Description</TableCell>
+          <TableCell align="center">Shift</TableCell>
           <TableCell align="center">Start Date</TableCell>
           <TableCell align="center">End Date</TableCell>
-          <TableCell align="center">Number Of Fishers</TableCell>
-          <TableCell align="center">Stay Code</TableCell>
-          <TableCell align="center">Boat ID</TableCell>
-          <TableCell align="center">Add Trips</TableCell>
-          <TableCell align="center">Actions</TableCell>
+          <TableCell align="center">Quantity</TableCell>
+          <TableCell align="center">Area</TableCell>
+          <TableCell align="center">Guest Notes</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -108,30 +106,21 @@ const ReservationsList = () => {
   );
 
   return (
-    <div className="table-pagination-container">
-      <Box sx={{ width: "100%" }}>
-        <Paper sx={{ width: "100%", mb: 2 }}>
+    <div>
+      <Box>
+        <Paper className="reservations-table__paper">
           <TableContainer
-            style={{ height: "calc(100vh - 170px)" }}
+            className="reservations-table__container"
             component={Paper}>
-            <Toolbar className="table__toolbar">
-              <Typography
-                sx={{ flex: "1 1 100%" }}
-                variant="h6"
-                id="tableTitle"
-                component="div">
-                Title
-              </Typography>
-              <div className="stays-list__header-buttons-group">
-                <SearchStaysDescription
-                  setDescriptionFilter={setDescriptionFilter}
-                  descriptionFilter={descriptionFilter}
-                />
-                <DateRangePicker
-                  setDateRangeFilter={setDateRangeFilter}
-                  dateRangeFilter={dateRangeFilter}
-                />
-              </div>
+            <Toolbar className="reservations-table__toolbar">
+              <SearchStaysDescription
+                setDescriptionFilter={setDescriptionFilter}
+                descriptionFilter={descriptionFilter}
+              />
+              <DateRangePicker
+                setDateRangeFilter={setDateRangeFilter}
+                dateRangeFilter={dateRangeFilter}
+              />
             </Toolbar>
             <Divider />
             {renderTable()}
@@ -140,9 +129,9 @@ const ReservationsList = () => {
       </Box>
 
       {!!filteredStays?.length && (
-        <div className="table-pagination-inputs-container">
+        <div className="reservations-table__pagination">
           <TextField
-            className="table-pagination-input"
+            className="reservations-table__items-per-page"
             label="Items Per Page"
             value={itemsPerPage}
             variant="standard"

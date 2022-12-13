@@ -1,161 +1,19 @@
-.add_stays_button {
-  background-color: #1976d2 !important;
-  color: white !important;
-}
-.stay-loader {
-  height: calc(100vh - 316px);
-  & > span {
-    margin: 0 calc(50% - 40px);
-  }
-}
-.stays-list__header-buttons-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.stay-actions {
-  & svg {
-    color: #1976d2;
-  }
-  & button:disabled > svg {
-    color: #bdbdbd !important;
-  }
-}
-
-.form-dialog__input-field textarea {
-  min-height: 96px;
-  max-height: 96px;
-  display: flex;
-  align-items: flex-start;
-  overflow: auto !important;
-}
-
-.editable-text-node-input textarea {
-  max-height: 96px;
-  display: flex;
-  align-items: flex-start;
-  overflow: auto !important;
-}
-
-.edit-stay-description-input {
-  max-width: 300px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.stay-status-indicator {
-  margin: 0 auto;
-  width: 10px;
-  height: 10px;
-  & > span > div {
-    border-radius: 50%;
-  }
-  &--green {
-    background-color: #abff00;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #557f01 0 -1px 9px,
-      #89ff00 0 2px 12px;
-  }
-  &--yellow {
-    background-color: #ff0;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px,
-      #ff0 0 2px 12px;
-  }
-  &--red {
-    background-color: #f00;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px,
-      rgba(255, 0, 0, 0.5) 0 2px 12px;
-  }
-  &--gray {
-    background-color: #efefef;
-    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset #545454 0 -1px 9px,
-      rgb(219 212 212 / 56%) 0 2px 12px;
-  }
-}
-
-.stay-cards-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100%;
-}
-
-.stay-listing-card {
-  width: 100%;
-  padding: 10px 20px 20px;
-  color: rgba(0, 0, 0, 0.8);
-  border-radius: 5px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  border: 1px solid rgba(black, 0.1);
-
-  .stay-status-indicator {
-    border-radius: 50%;
-    margin: unset;
-    border: 0.5px solid rgba(white, 0.2);
+.reservations-table {
+  &__paper {
+    margin-bottom: 20px;
   }
 
-  h5,
-  h1,
-  p {
-    margin: 0;
+  &__container {
+    height: calc(100vh - 254px);
   }
 
-  &__section {
+  &__toolbar,
+  &__pagination {
     display: flex;
     justify-content: space-between;
   }
 
-  &__description-code {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    & > p {
-      max-width: 240px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-  }
-
-  &__num-of-trips {
-    & > div {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      justify-content: space-between;
-    }
-    & > p {
-      text-align: end;
-    }
-  }
-
-  &__date-container {
-    display: flex;
-    gap: 5px;
-    flex-direction: column;
-  }
-
-  &__end-date {
-    text-align: end;
-  }
-
-  &__actions-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-
-    & svg {
-      color: #1976d2;
-    }
-
-    & button:disabled > svg {
-      color: #bdbdbd !important;
-    }
+  &__items-per-page {
+    width: 100px;
   }
 }

@@ -7,7 +7,7 @@ export const Layout = () => {
     <Suspense fallback={<PageLoader />}>
       <div className="layout">
         <header>
-          <h1>Restaurant App</h1>
+          <h1>Reservations App</h1>
         </header>
         <main>
           <Outlet />

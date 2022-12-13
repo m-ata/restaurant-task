@@ -1,5 +1,5 @@
 .layout {
-  min-height: calc(100vh - 32px);
+  min-height: calc(100vh - 20px);
 
   & > header {
     background: rgb(45, 123, 205);
@@ -11,13 +11,13 @@
     );
     padding: 24px;
     color: $white;
-    margin-top: 32px;
+    margin-top: 20px;
   }
 
   & > main {
     box-sizing: border-box;
     margin: auto;
-    padding: 20px 46px;
-    max-width: 1200px;
+    padding: 20px;
+    max-width: 1400px;
   }
 }
