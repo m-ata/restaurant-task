@@ -1,0 +1,19 @@
+.reservations-table {
+  &__paper {
+    margin-bottom: 20px;
+  }
+
+  &__container {
+    height: calc(100vh - 254px);
+  }
+
+  &__toolbar,
+  &__pagination {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__items-per-page {
+    width: 100px;
+  }
+}
