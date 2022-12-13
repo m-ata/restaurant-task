@@ -22,6 +22,7 @@ import { mockData } from "../../mock-data";
 import { TextSearchInput } from "../../components/TextSearchInput/TextSearchInput";
 import { getPageCount } from "../../utils/utils";
 import { DateRangePicker } from "../../components/DateRangePicker/DateRangePicker";
+import { DropDown } from "../../components/DropDown/DropDown";
 
 const defaultDateRange = {
   start: "",
@@ -34,6 +35,9 @@ const ReservationsList = () => {
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
   const [dateRangeFilter, setDateRangeFilter] = useState(defaultDateRange);
   const [nameFilter, setNameFilter] = useState("");
+  const [areaFilter, setAreaFilter] = useState("all");
+  const [shiftFilter, setShiftFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
   const { pathname } = useLocation();
 
   const filterByDate = reservationsData => {
@@ -63,9 +67,34 @@ const ReservationsList = () => {
     if (nameFilter) {
       return reservationsData.filter(
         data =>
-          data.customer?.firstName?.toLowerCase?.().includes(nameFilter.toLowerCase().trim()) ||
-          data.customer?.lastName?.toLowerCase?.().includes(nameFilter.toLowerCase().trim()),
+          data.customer?.firstName
+            ?.toLowerCase?.()
+            .includes(nameFilter.toLowerCase().trim()) ||
+          data.customer?.lastName
+            ?.toLowerCase?.()
+            .includes(nameFilter.toLowerCase().trim()),
       );
+    }
+    return reservationsData;
+  };
+
+  const filterByArea = reservationsData => {
+    if (areaFilter !== "all") {
+      return reservationsData.filter(data => data.area === areaFilter);
+    }
+    return reservationsData;
+  };
+
+  const filterByShift = reservationsData => {
+    if (shiftFilter !== "all") {
+      return reservationsData.filter(data => data.shift === shiftFilter);
+    }
+    return reservationsData;
+  };
+
+  const filterByStatus = reservationsData => {
+    if (statusFilter !== "all") {
+      return reservationsData.filter(data => data.status === statusFilter);
     }
     return reservationsData;
   };
@@ -75,7 +104,7 @@ const ReservationsList = () => {
     setNameFilter("");
   }, [pathname]);
 
-  const filteredReservations = filterByName(filterByDate(mockData));
+  const filteredReservations = filterByStatus(filterByShift(filterByArea(filterByName(filterByDate(mockData)))));
 
   const renderTable = () => (
     <Table stickyHeader size="large">
@@ -105,6 +134,14 @@ const ReservationsList = () => {
     </Table>
   );
 
+  const getFilterMenuOptions = field => [
+    { label: "All", value: "all" },
+    ...[...new Set(mockData.map(val => val[field]))].map(val => ({
+      label: val,
+      value: val,
+    })),
+  ];
+
   return (
     <div>
       <Box>
@@ -118,10 +155,30 @@ const ReservationsList = () => {
                 textFilter={nameFilter}
                 label="Search By Name"
               />
-              <DateRangePicker
-                setDateRangeFilter={setDateRangeFilter}
-                dateRangeFilter={dateRangeFilter}
-              />
+              <div className="reservations-table__filters-container">
+                <DropDown
+                  label="Area"
+                  value={areaFilter}
+                  onChange={e => setAreaFilter(e.target.value)}
+                  menuItems={getFilterMenuOptions("area")}
+                />
+                <DropDown
+                  label="Shift"
+                  value={shiftFilter}
+                  onChange={e => setShiftFilter(e.target.value)}
+                  menuItems={getFilterMenuOptions("shift")}
+                />
+                <DropDown
+                  label="Status"
+                  value={statusFilter}
+                  onChange={e => setStatusFilter(e.target.value)}
+                  menuItems={getFilterMenuOptions("status")}
+                />
+                <DateRangePicker
+                  setDateRangeFilter={setDateRangeFilter}
+                  dateRangeFilter={dateRangeFilter}
+                />
+              </div>
             </Toolbar>
             <Divider />
             {renderTable()}
