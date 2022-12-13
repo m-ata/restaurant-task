@@ -2,7 +2,7 @@
 import { TableCell, TableRow } from "@mui/material";
 import React from "react";
 
-export const StayDataRow = ({ row }) => {
+export const ReservationDataRow = ({ row }) => {
   return (
     <TableRow key={row.stayId}>
       <TableCell align="center">

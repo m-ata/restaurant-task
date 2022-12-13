@@ -7,6 +7,13 @@
     height: calc(100vh - 254px);
   }
 
+  &__filters-container {
+    min-width: 628px;
+    width: 60%;
+    display: flex;
+    gap: 10px;
+  }
+
   &__toolbar,
   &__pagination {
     display: flex;
