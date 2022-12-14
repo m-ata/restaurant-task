@@ -24,12 +24,12 @@ import { getPageCount } from "../../utils/utils";
 import { DateRangePicker } from "../../components/DateRangePicker/DateRangePicker";
 import { DropDown } from "../../components/DropDown/DropDown";
 
+const ReservationsList = () => {
 const defaultDateRange = {
   start: "",
   end: "",
 };
 
-const ReservationsList = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const itemsPerPageOptions = [10, 15, 20, 25];
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
