@@ -23,12 +23,14 @@ import { TextSearchInput } from "../../components/TextSearchInput/TextSearchInpu
 import { getPageCount } from "../../utils/utils";
 import { DateRangePicker } from "../../components/DateRangePicker/DateRangePicker";
 import { DropDown } from "../../components/DropDown/DropDown";
+import { sortTypes } from "../../utils/constants";
+import { SortButton } from "../../components/SortButton/SortButton";
 
 const ReservationsList = () => {
-const defaultDateRange = {
-  start: "",
-  end: "",
-};
+  const defaultDateRange = {
+    start: "",
+    end: "",
+  };
 
   const [pageNumber, setPageNumber] = useState(1);
   const itemsPerPageOptions = [10, 15, 20, 25];
@@ -38,6 +40,8 @@ const defaultDateRange = {
   const [areaFilter, setAreaFilter] = useState("all");
   const [shiftFilter, setShiftFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [sortByName, setSortByName] = useState(sortTypes.none);
+  const [sortByQuantity, setSortByQuantity] = useState(sortTypes.none);
   const { pathname } = useLocation();
 
   const filterByDate = reservationsData => {
@@ -99,24 +103,81 @@ const defaultDateRange = {
     return reservationsData;
   };
 
+  const applyNameSort = array => {
+    if (sortByName === sortTypes.none) {
+      return filterByStatus(
+        filterByShift(filterByArea(filterByName(filterByDate(mockData)))),
+      );
+    }
+
+    return array.sort((a, b) => {
+      if (
+        `${a.firstName} ${a.lastName}`.toLowerCase() <
+        `${b.firstName} ${b.lastName}`.toLowerCase()
+      ) {
+        return sortByName === sortTypes.ascending ? -1 : 1;
+      }
+      if (
+        `${a.firstName} ${a.lastName}`.toLowerCase() >
+        `${b.firstName} ${b.lastName}`.toLowerCase()
+      ) {
+        return sortByName === sortTypes.ascending ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
+  const applyQuantitySort = array => {
+    if (sortByQuantity === sortTypes.none) {
+      return filterByStatus(
+        filterByShift(filterByArea(filterByName(filterByDate(mockData)))),
+      );
+    }
+
+    return array.sort((a, b) => {
+      if (a.quantity < b.quantity) {
+        return sortByQuantity === sortTypes.ascending ? -1 : 1;
+      }
+      if (a.quantity > b.quantity) {
+        return sortByQuantity === sortTypes.ascending ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
   useEffect(() => {
     setDateRangeFilter(defaultDateRange);
     setNameFilter("");
   }, [pathname]);
 
-  const filteredReservations = filterByStatus(filterByShift(filterByArea(filterByName(filterByDate(mockData)))));
+  const filteredReservations = applyNameSort(
+    applyQuantitySort(
+      filterByStatus(
+        filterByShift(filterByArea(filterByName(filterByDate(mockData)))),
+      ),
+    ),
+  );
 
   const renderTable = () => (
     <Table stickyHeader size="large">
       <TableHead>
         <TableRow>
           <TableCell align="center">Business Date</TableCell>
-          <TableCell align="center">Customer Name</TableCell>
+          <TableCell align="center">
+            <span>Customer Name</span>
+            <SortButton sortValue={sortByName} setSortValue={setSortByName} />
+          </TableCell>
           <TableCell align="center">Status</TableCell>
           <TableCell align="center">Shift</TableCell>
           <TableCell align="center">Start Date</TableCell>
           <TableCell align="center">End Date</TableCell>
-          <TableCell align="center">Quantity</TableCell>
+          <TableCell align="center">
+            <span>Quantity</span>
+            <SortButton
+              sortValue={sortByQuantity}
+              setSortValue={setSortByQuantity}
+            />
+          </TableCell>
           <TableCell align="center">Area</TableCell>
           <TableCell align="center">Guest Notes</TableCell>
         </TableRow>

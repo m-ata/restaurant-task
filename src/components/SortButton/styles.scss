@@ -1,0 +1,11 @@
+.sort-button {
+  width: 18px !important;
+
+  &.ascending {
+    transform: rotateX(180deg);
+  }
+
+  &.active {
+    color: blue;
+  }
+}
