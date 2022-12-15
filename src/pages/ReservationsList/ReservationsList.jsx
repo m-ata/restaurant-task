@@ -105,21 +105,19 @@ const ReservationsList = () => {
 
   const applyNameSort = array => {
     if (sortByName === sortTypes.none) {
-      return filterByStatus(
-        filterByShift(filterByArea(filterByName(filterByDate(mockData)))),
-      );
+      return array;
     }
 
-    return array.sort((a, b) => {
+    return [...array].sort((a, b) => {
       if (
-        `${a.firstName} ${a.lastName}`.toLowerCase() <
-        `${b.firstName} ${b.lastName}`.toLowerCase()
+        `${a.customer?.firstName} ${a.customer?.lastName}`.toLowerCase() <
+        `${b.customer?.firstName} ${b.customer?.lastName}`.toLowerCase()
       ) {
         return sortByName === sortTypes.ascending ? -1 : 1;
       }
       if (
-        `${a.firstName} ${a.lastName}`.toLowerCase() >
-        `${b.firstName} ${b.lastName}`.toLowerCase()
+        `${a.customer?.firstName} ${a.customer?.lastName}`.toLowerCase() >
+        `${b.customer?.firstName} ${b.customer?.lastName}`.toLowerCase()
       ) {
         return sortByName === sortTypes.ascending ? 1 : -1;
       }
@@ -129,12 +127,10 @@ const ReservationsList = () => {
 
   const applyQuantitySort = array => {
     if (sortByQuantity === sortTypes.none) {
-      return filterByStatus(
-        filterByShift(filterByArea(filterByName(filterByDate(mockData)))),
-      );
+      return array;
     }
 
-    return array.sort((a, b) => {
+    return [...array].sort((a, b) => {
       if (a.quantity < b.quantity) {
         return sortByQuantity === sortTypes.ascending ? -1 : 1;
       }
@@ -150,11 +146,9 @@ const ReservationsList = () => {
     setNameFilter("");
   }, [pathname]);
 
-  const filteredReservations = applyNameSort(
-    applyQuantitySort(
-      filterByStatus(
-        filterByShift(filterByArea(filterByName(filterByDate(mockData)))),
-      ),
+  const filteredReservations = filterByStatus(
+    filterByShift(
+      filterByArea(filterByName(filterByDate(applyQuantitySort(applyNameSort(mockData))))),
     ),
   );
 
@@ -165,7 +159,13 @@ const ReservationsList = () => {
           <TableCell align="center">Business Date</TableCell>
           <TableCell align="center">
             <span>Customer Name</span>
-            <SortButton sortValue={sortByName} setSortValue={setSortByName} />
+            <SortButton
+              sortValue={sortByName}
+              setSortValue={val => {
+                setSortByQuantity(sortTypes.none);
+                setSortByName(val);
+              }}
+            />
           </TableCell>
           <TableCell align="center">Status</TableCell>
           <TableCell align="center">Shift</TableCell>
@@ -175,7 +175,10 @@ const ReservationsList = () => {
             <span>Quantity</span>
             <SortButton
               sortValue={sortByQuantity}
-              setSortValue={setSortByQuantity}
+              setSortValue={val => {
+                setSortByName(sortTypes.none);
+                setSortByQuantity(val);
+              }}
             />
           </TableCell>
           <TableCell align="center">Area</TableCell>
