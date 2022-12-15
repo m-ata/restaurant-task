@@ -3,3 +3,9 @@ export const appRoutes = {
 };
 
 export const itemsPerPage = 20;
+
+export const sortTypes = {
+  ascending: "asc",
+  descending: "desc",
+  none: null,
+};
