@@ -3,7 +3,7 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    app: "./src/index.js",
+    app: "./src/index.tsx",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -12,7 +12,7 @@ module.exports = {
     clean: true,
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json"],
+    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", "json"],
   },
   devServer: {
     historyApiFallback: true,

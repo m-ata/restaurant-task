@@ -1,9 +1,21 @@
 /* eslint-disable react/prop-types */
 import { TextField } from "@mui/material";
-import React from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 
-export const DateRangePicker = ({ setDateRangeFilter, dateRangeFilter }) => {
+interface IProps {
+  setDateRangeFilter: Dispatch<
+    SetStateAction<{
+      start: string;
+      end: string;
+    }>
+  >;
+  dateRangeFilter: {
+    start: string;
+    end: string;
+  };
+}
 
+export const DateRangePicker: FC<IProps> = ({ setDateRangeFilter, dateRangeFilter }) => {
   return (
     <div className="date-range-picker">
       <TextField
@@ -14,7 +26,7 @@ export const DateRangePicker = ({ setDateRangeFilter, dateRangeFilter }) => {
         onChange={e =>
           setDateRangeFilter(prevState => ({
             ...prevState,
-            start: e.target.value,
+            start: (e.target as any).value,
           }))
         }
         size="small"
@@ -30,7 +42,7 @@ export const DateRangePicker = ({ setDateRangeFilter, dateRangeFilter }) => {
         onChange={e =>
           setDateRangeFilter(prevState => ({
             ...prevState,
-            end: e.target.value,
+            end: (e.target as any).value,
           }))
         }
         size="small"

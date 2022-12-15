@@ -40,34 +40,39 @@ const ReservationsList = () => {
   const [areaFilter, setAreaFilter] = useState("all");
   const [shiftFilter, setShiftFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [sortByName, setSortByName] = useState(sortTypes.none);
-  const [sortByQuantity, setSortByQuantity] = useState(sortTypes.none);
+  const [sortByName, setSortByName] = useState<null | string>(sortTypes.none);
+  const [sortByQuantity, setSortByQuantity] = useState<null | string>(
+    sortTypes.none,
+  );
   const { pathname } = useLocation();
 
-  const filterByDate = reservationsData => {
+  const filterByDate = (reservationsData: Reservation[]): Reservation[] => {
     if (dateRangeFilter.start && !dateRangeFilter.end) {
       return reservationsData.filter(
         ({ start }) =>
-          new Date(start).getTime() >= new Date(dateRangeFilter.start),
+          new Date(start).getTime() >=
+          new Date(dateRangeFilter.start).getTime(),
       );
     }
     if (!dateRangeFilter.start && dateRangeFilter.end) {
       return reservationsData.filter(
         ({ start }) =>
-          new Date(start).getTime() <= new Date(dateRangeFilter.end),
+          new Date(start).getTime() <= new Date(dateRangeFilter.end).getTime(),
       );
     }
     if (dateRangeFilter.start && dateRangeFilter.end) {
       return reservationsData.filter(
         ({ start }) =>
-          new Date(start).getTime() <= new Date(dateRangeFilter.end) &&
-          new Date(start).getTime() >= new Date(dateRangeFilter.start),
+          new Date(start).getTime() <=
+            new Date(dateRangeFilter.end).getTime() &&
+          new Date(start).getTime() >=
+            new Date(dateRangeFilter.start).getTime(),
       );
     }
     return reservationsData;
   };
 
-  const filterByName = reservationsData => {
+  const filterByName = (reservationsData: Reservation[]): Reservation[] => {
     if (nameFilter) {
       return reservationsData.filter(
         data =>
@@ -82,28 +87,28 @@ const ReservationsList = () => {
     return reservationsData;
   };
 
-  const filterByArea = reservationsData => {
+  const filterByArea = (reservationsData: Reservation[]): Reservation[] => {
     if (areaFilter !== "all") {
       return reservationsData.filter(data => data.area === areaFilter);
     }
     return reservationsData;
   };
 
-  const filterByShift = reservationsData => {
+  const filterByShift = (reservationsData: Reservation[]): Reservation[] => {
     if (shiftFilter !== "all") {
       return reservationsData.filter(data => data.shift === shiftFilter);
     }
     return reservationsData;
   };
 
-  const filterByStatus = reservationsData => {
+  const filterByStatus = (reservationsData: Reservation[]): Reservation[] => {
     if (statusFilter !== "all") {
       return reservationsData.filter(data => data.status === statusFilter);
     }
     return reservationsData;
   };
 
-  const applyNameSort = array => {
+  const applyNameSort = (array: Reservation[]): Reservation[] => {
     if (sortByName === sortTypes.none) {
       return array;
     }
@@ -125,7 +130,7 @@ const ReservationsList = () => {
     });
   };
 
-  const applyQuantitySort = array => {
+  const applyQuantitySort = (array: Reservation[]): Reservation[] => {
     if (sortByQuantity === sortTypes.none) {
       return array;
     }
@@ -148,12 +153,14 @@ const ReservationsList = () => {
 
   const filteredReservations = filterByStatus(
     filterByShift(
-      filterByArea(filterByName(filterByDate(applyQuantitySort(applyNameSort(mockData))))),
+      filterByArea(
+        filterByName(filterByDate(applyQuantitySort(applyNameSort(mockData)))),
+      ),
     ),
   );
 
   const renderTable = () => (
-    <Table stickyHeader size="large">
+    <Table stickyHeader size="medium">
       <TableHead>
         <TableRow>
           <TableCell align="center">Business Date</TableCell>
@@ -198,12 +205,12 @@ const ReservationsList = () => {
     </Table>
   );
 
-  const getFilterMenuOptions = field => [
+  const getFilterMenuOptions = (field: keyof Reservation): MenuOptions[] => [
     { label: "All", value: "all" },
-    ...[...new Set(mockData.map(val => val[field]))].map(val => ({
+    ...([...new Set(mockData.map(val => val[field]))].map(val => ({
       label: val,
       value: val,
-    })),
+    })) as MenuOptions[]),
   ];
 
   return (
@@ -259,7 +266,7 @@ const ReservationsList = () => {
             variant="standard"
             select
             onChange={e => {
-              setItemsPerPage(e.target.value);
+              setItemsPerPage(+(e.target as any).value);
               setPageNumber(1);
             }}>
             {itemsPerPageOptions.map(value => (

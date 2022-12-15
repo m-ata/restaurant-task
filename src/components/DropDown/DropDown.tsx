@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import React from "react";
+import React, { FC } from "react";
 
-export const DropDown = ({ label, value, onChange, menuItems }) => {
-  const labelId = btoa(Math.random());
+interface IProps {
+  label: string;
+  value: string | number;
+  onChange: (e: any) => void;
+  menuItems: MenuOptions[];
+}
+
+export const DropDown: FC<IProps> = ({ label, value, onChange, menuItems }) => {
+  const labelId = btoa(Math.random().toString());
 
   return (
     <FormControl fullWidth size="small">

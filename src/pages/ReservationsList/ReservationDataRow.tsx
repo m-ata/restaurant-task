@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { TableCell, TableRow } from "@mui/material";
-import React from "react";
+import React, { FC } from "react";
 
-export const ReservationDataRow = ({ row }) => {
+interface IProps {
+  row: Reservation;
+}
+
+export const ReservationDataRow: FC<IProps> = ({ row }) => {
   return (
-    <TableRow key={row.stayId}>
-      <TableCell align="center">
-        {row.businessDate}
-      </TableCell>
+    <TableRow key={row.id}>
+      <TableCell align="center">{row.businessDate}</TableCell>
       <TableCell align="center">
         {`${row.customer?.firstName} ${row.customer?.lastName}`}
       </TableCell>
