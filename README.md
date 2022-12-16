@@ -2,7 +2,7 @@
 This App displays reservations listing to user along with following features:
 
 > Filter by Name, Date range, status, shift and area.  
-> Sort reservations by name and quantity.  
+> Sort reservations by name and quantity. Sort will be applied with either `customer name` or `quantity` at a time.
 > Paginate reservations listing.  
 
 ## Scripts:
