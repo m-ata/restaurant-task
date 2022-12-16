@@ -15,7 +15,7 @@ This App displays reservations listing to user along with following features:
 ### Tech stack:
 > Typescript. 
 > React. 
-> Redux with React Redux Toolkit. 
+> Redux with React Redux Toolkit.  
 > React router v6.  
 > Scss.  
 > Material UI. 
