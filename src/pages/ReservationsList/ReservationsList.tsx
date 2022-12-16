@@ -44,6 +44,12 @@ const ReservationsList = () => {
   );
   const { pathname } = useLocation();
 
+  useEffect(() => {
+    setDateRangeFilter(defaultDateRange);
+    setNameFilter("");
+  }, [pathname]);
+
+  //handling filter by start and end date
   const filterByDate = (reservationsData: Reservation[]): Reservation[] => {
     if (dateRangeFilter.start && !dateRangeFilter.end) {
       return reservationsData.filter(
@@ -70,6 +76,7 @@ const ReservationsList = () => {
     return reservationsData;
   };
 
+  //handling filter by customer name
   const filterByName = (reservationsData: Reservation[]): Reservation[] => {
     if (nameFilter) {
       return reservationsData.filter(
@@ -85,6 +92,7 @@ const ReservationsList = () => {
     return reservationsData;
   };
 
+  //handling filter by area
   const filterByArea = (reservationsData: Reservation[]): Reservation[] => {
     if (areaFilter !== "all") {
       return reservationsData.filter(data => data.area === areaFilter);
@@ -92,6 +100,7 @@ const ReservationsList = () => {
     return reservationsData;
   };
 
+  //handling filter by shift
   const filterByShift = (reservationsData: Reservation[]): Reservation[] => {
     if (shiftFilter !== "all") {
       return reservationsData.filter(data => data.shift === shiftFilter);
@@ -99,6 +108,7 @@ const ReservationsList = () => {
     return reservationsData;
   };
 
+  //handling filter by shift
   const filterByStatus = (reservationsData: Reservation[]): Reservation[] => {
     if (statusFilter !== "all") {
       return reservationsData.filter(data => data.status === statusFilter);
@@ -106,6 +116,7 @@ const ReservationsList = () => {
     return reservationsData;
   };
 
+  //handling sort by customer name
   const applyNameSort = (array: Reservation[]): Reservation[] => {
     if (sortByName === sortTypes.none) {
       return array;
@@ -128,6 +139,7 @@ const ReservationsList = () => {
     });
   };
 
+  //handling sort by quantity
   const applyQuantitySort = (array: Reservation[]): Reservation[] => {
     if (sortByQuantity === sortTypes.none) {
       return array;
@@ -143,11 +155,6 @@ const ReservationsList = () => {
       return 0;
     });
   };
-
-  useEffect(() => {
-    setDateRangeFilter(defaultDateRange);
-    setNameFilter("");
-  }, [pathname]);
 
   // Apply all modular filters and sorts
   const filteredReservations = filterByStatus(
