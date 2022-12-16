@@ -18,6 +18,7 @@ interface IProps {
 }
 
 export const DropDown: FC<IProps> = ({ label, value, onChange, menuItems }) => {
+  // Generate unique ID
   const labelId = btoa(Math.random().toString());
 
   return (

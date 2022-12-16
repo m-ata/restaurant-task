@@ -9,6 +9,7 @@ interface IProps {
 }
 
 export const SortButton: FC<IProps> = ({ sortValue, setSortValue }) => {
+  
   const setSort = (prevSort: string) => {
     switch (prevSort) {
       case sortTypes.none:
