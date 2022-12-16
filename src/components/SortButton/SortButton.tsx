@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Sort } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React, { FC } from "react";
