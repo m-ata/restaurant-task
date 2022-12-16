@@ -1,9 +1,19 @@
 /* eslint-disable react/prop-types */
 import { Cancel, Search } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
-import React from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 
-export const TextSearchInput = ({ setTextFilter, textFilter, label }) => {
+interface IProps {
+  setTextFilter: Dispatch<SetStateAction<string>>;
+  textFilter: string;
+  label: string;
+}
+
+export const TextSearchInput: FC<IProps> = ({
+  setTextFilter,
+  textFilter,
+  label,
+}) => {
   return (
     <div className="search-text-section">
       <TextField

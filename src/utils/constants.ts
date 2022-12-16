@@ -7,5 +7,5 @@ export const itemsPerPage = 20;
 export const sortTypes = {
   ascending: "asc",
   descending: "desc",
-  none: null,
+  none: null as null,
 };

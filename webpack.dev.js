@@ -7,6 +7,7 @@ module.exports = merge(common, {
   devtool: "inline-source-map",
   module: {
     rules: [
+      { test: /\.tsx?$/, exclude: /node_modules/, loader: "ts-loader" },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
