@@ -26,7 +26,7 @@ export const DateRangePicker: FC<IProps> = ({ setDateRangeFilter, dateRangeFilte
         onChange={e =>
           setDateRangeFilter(prevState => ({
             ...prevState,
-            start: (e.target as any).value,
+            start: e.target.value,
           }))
         }
         size="small"
@@ -42,7 +42,7 @@ export const DateRangePicker: FC<IProps> = ({ setDateRangeFilter, dateRangeFilte
         onChange={e =>
           setDateRangeFilter(prevState => ({
             ...prevState,
-            end: (e.target as any).value,
+            end: e.target.value,
           }))
         }
         size="small"

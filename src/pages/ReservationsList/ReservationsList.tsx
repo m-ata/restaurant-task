@@ -230,19 +230,19 @@ const ReservationsList = () => {
                 <DropDown
                   label="Area"
                   value={areaFilter}
-                  onChange={e => setAreaFilter(e.target.value)}
+                  onChange={e => setAreaFilter(e.target.value as string)}
                   menuItems={getFilterMenuOptions("area")}
                 />
                 <DropDown
                   label="Shift"
                   value={shiftFilter}
-                  onChange={e => setShiftFilter(e.target.value)}
+                  onChange={e => setShiftFilter(e.target.value as string)}
                   menuItems={getFilterMenuOptions("shift")}
                 />
                 <DropDown
                   label="Status"
                   value={statusFilter}
-                  onChange={e => setStatusFilter(e.target.value)}
+                  onChange={e => setStatusFilter(e.target.value as string)}
                   menuItems={getFilterMenuOptions("status")}
                 />
                 <DateRangePicker
@@ -266,7 +266,7 @@ const ReservationsList = () => {
             variant="standard"
             select
             onChange={e => {
-              setItemsPerPage(+(e.target as any).value);
+              setItemsPerPage(+e.target.value);
               setPageNumber(1);
             }}>
             {itemsPerPageOptions.map(value => (

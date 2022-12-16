@@ -1,11 +1,20 @@
 /* eslint-disable react/prop-types */
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import React, { FC } from "react";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
+import React, { FC, ReactNode } from "react";
 
 interface IProps {
   label: string;
   value: string | number;
-  onChange: (e: any) => void;
+  onChange: (
+    event: SelectChangeEvent<string | number>,
+    child: ReactNode,
+  ) => void;
   menuItems: MenuOptions[];
 }
 

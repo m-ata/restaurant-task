@@ -20,7 +20,7 @@ export const TextSearchInput: FC<IProps> = ({
         value={textFilter}
         type="text"
         size="small"
-        onChange={e => setTextFilter((e.target as any).value)}
+        onChange={e => setTextFilter(e.target.value)}
         label={label}
         InputProps={{
           endAdornment: (
