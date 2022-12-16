@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { TextField } from "@mui/material";
 import React, { Dispatch, FC, SetStateAction } from "react";
 

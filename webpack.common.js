@@ -1,3 +1,4 @@
+// All common webpack config here for all environments
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 

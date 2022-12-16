@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Sort } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React, { FC } from "react";
@@ -10,6 +9,7 @@ interface IProps {
 }
 
 export const SortButton: FC<IProps> = ({ sortValue, setSortValue }) => {
+  
   const setSort = (prevSort: string) => {
     switch (prevSort) {
       case sortTypes.none:

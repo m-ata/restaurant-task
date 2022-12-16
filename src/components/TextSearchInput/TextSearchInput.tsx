@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Cancel, Search } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { Dispatch, FC, SetStateAction } from "react";

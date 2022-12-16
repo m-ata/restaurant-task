@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { TableCell, TableRow } from "@mui/material";
 import React, { FC } from "react";
 

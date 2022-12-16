@@ -1,5 +1,3 @@
-/* eslint-disable max-lines */
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -151,6 +149,7 @@ const ReservationsList = () => {
     setNameFilter("");
   }, [pathname]);
 
+  // Apply all modular filters and sorts
   const filteredReservations = filterByStatus(
     filterByShift(
       filterByArea(
@@ -194,7 +193,7 @@ const ReservationsList = () => {
       </TableHead>
       <TableBody>
         {filteredReservations
-          ?.slice(
+          ?.slice(  // Get current page items only
             (pageNumber - 1) * itemsPerPage,
             (pageNumber - 1) * itemsPerPage + itemsPerPage,
           )
@@ -205,6 +204,7 @@ const ReservationsList = () => {
     </Table>
   );
 
+  // Create filters dropdown object from mock data
   const getFilterMenuOptions = (field: keyof Reservation): MenuOptions[] => [
     { label: "All", value: "all" },
     ...([...new Set(mockData.map(val => val[field]))].map(val => ({
@@ -256,7 +256,7 @@ const ReservationsList = () => {
           </TableContainer>
         </Paper>
       </Box>
-
+      {/* Pagination options */}
       {!!filteredReservations?.length && (
         <div className="reservations-table__pagination">
           <TextField
